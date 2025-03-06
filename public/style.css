@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Merriweather:wght@700&family=Open+Sans:wght@400&display=swap");
+
 
 :root {
   --primary-500: #545aea;
@@ -12,6 +14,11 @@
 }
 
 
+body {
+  background-color: ghostwhite;
+}
+
+
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -22,7 +29,6 @@
   font-family: var(--font-primary);
   font-weight: bold;
   color: var(--primary-500);
-  text-transform: uppercase;
   text-align: center;
   padding: 5px;
 }
@@ -36,7 +42,59 @@
 
 .blog-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat( 1fr);
+  row-gap: 50px;
   margin: 20px;
+  justify-items: center; /* Centers items within grid cells */
+  align-items: center; /* Centers items within each row */
+}
+
+
+
+article {
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  max-width: 95%;
+  
+}
+
+
+.blog-date {
+  font-family: 'Inter', sans-serif; 
+  font-size: 14px; 
+  font-weight: 400;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.blog-title {
+  font-family: 'Merriweather', serif; 
+  font-size: 1.5rem; 
+  font-weight: 700;
+  color: #111827; 
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.blog-title:hover {
+  color: #10141dc9;
+}
+
+.blog-content {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  max-width: 90%;
+  font-weight: 400;
+  line-height: 1.6; 
+  color: #374151;
+  margin-bottom: 14px;
+}
+
+.blog-user {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; 
+  font-weight: 500;
+  color: #1f2937;
 }
