@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const indexController = require('../controllers/indexController')
 
-router.get('/', (req, res) => {
-  res.render('index')
-})
+router.get('/', indexController.getPosts) // Get All Posts
 
 
-router.get('/test', (req, res) => {
-  res.send('This is the 2nd route called test!')
-})
 
 
 module.exports = router;
