@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getSignUp } = require('../auth/authController')
+const { getSignUp, getLogin } = require('../auth/authController')
 
 
 
@@ -10,7 +10,7 @@ router.post('/sign-up')              // Creates and submits new user signup
 
 
 
-router.get('/log-in')                // Displays login form
+router.get('/log-in', getLogin)                // Displays login form
 
 router.post('/log-in')               // Submits user login data
 

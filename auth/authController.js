@@ -26,12 +26,20 @@ async function getSignUp(req, res) {
 
 
 // Render Login page
-
+async function getLogin(req, res) {
+  try {
+    res.render('login_form')
+  } catch (error) {
+    console.error('Error displaying login form', error);
+    res.status(500).send('Server Error')
+  }
+}
 
 
 
 module.exports = {
   getSignUp,
+  getLogin,
   
 
 }
