@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Merriweather:wght@700&family=Open+Sans:wght@400&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 :root {
   --primary-500: #74C0FC;
@@ -47,7 +49,7 @@ body {
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
-  font-family: 'Open Sans';
+  font-family: var(--font-secondary);
 }
 
 .navbar a:hover {
@@ -123,7 +125,7 @@ article {
 }
 
 .blog-content {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-secondary);
   font-size: 15px;
   max-width: 90%;
   font-weight: 400;
@@ -147,6 +149,7 @@ footer {
   width: 100%;
   position:absolute;
   bottom:0;
+  padding: 5px 5px;
 }
 
 .footer-container {
@@ -220,6 +223,203 @@ footer {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+/* Sign up and Log in */
+
+.login-container, .signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  max-width: 23%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  padding: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  border-radius: 10px;
+  z-index: 99;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+.login-container h1, .signup-container h1 {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.login-subtitle {
+  margin-bottom: 30px;
+  opacity: 0.5;
+  font-size: 18px;
+  text-align: center;
+}
+
+
+.login-container button, .signup-container button {
+  margin-top: 5rem;
+  background-color: #0088ff;
+  border: none;
+  cursor: pointer;
+  padding: 12px 12px;
+  font-family: 'Rubik', sans-serif;
+  text-decoration: none;
+  font-size: 15px;
+  display: block;
+  width: 100%;
+  margin: 3rem auto 0 auto;
+  text-align: center;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.login-container button:hover, .signup-container button:hover {
+  background-color: rgb(31, 117, 230);
+  transition: all ease 1.2s;
+}
+
+
+ #username {
+  margin-bottom: 30px;
+}
+
+.login-container input, .signup-container input {
+  padding: 10px;
+  margin-top: 5px;
+  color: black;
+
+}
+
+.login-container label, .signup-container label {
+  font-size: 15px;
+}
+
+.sign-up-button {     /* on login page */
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+}
+
+.sign-up-account {    /* on login page */
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: gray;
+}
+
+
+.span-sign-up {       /* on login page */
+  color: #0088ff;
+  cursor: pointer;
+}
+
+.logo {
+  width: 150px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  height: auto;
+}
+
+
+
+
+/* Form  */
+
+
+.form-container {
+  background-color: white;
+  width: 30%;
+  padding: 30px;
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+ }
+ 
+ .form {
+   background-color: white;
+   display: flex;
+   flex-direction: column;
+   margin: 0 auto;
+   max-width: 100%;
+   align-items: start;
+   justify-content: center;
+ }
+ 
+ 
+ input {
+   border-radius: 2px;
+   border: solid 1px rgb(199, 195, 195);
+   padding: 6px 20px;
+   font-family: var(--font-primary), sans-serif;
+   width: 100%;
+   background-color: rgb(253, 249, 249);
+ }
+ 
+ /* Add focus styles for inputs */
+ input[type="text"]:focus, input[type="password"]:focus {
+   border-color: #007bff; /* Bright blue border color on focus */
+   box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); /* Subtle glow effect */
+ }
+ 
+ /* Add placeholder styling */
+ input[type="text"]::placeholder input[type="password"]::placeholder {
+   color: #aaa; /* Light gray placeholder text for a modern touch */
+   opacity: 1; 
+ }
+ 
+ 
+ 
+ /* Style for the form and text inputs */
+ input[type="text"], input[type="password"] {
+   font-family: var(--font-primary), Arial, sans-serif; 
+   font-size: 15px; 
+   color: #333;
+   outline: none; 
+   margin-bottom: 16px;
+   border: 1px solid #ddd; 
+   border-radius: 2px; 
+   background-color: #f9f9f9; 
+   transition: border-color 0.3s, box-shadow 0.3s; 
+  }
+  
+  
+
+  /* For non auth forms*/
+
+  .input-group {
+    font-weight: 600;
+    text-align: left;
+    margin-top: 5px;
+    font-family: var(--font-primary), sans-serif;
+  }
+  
+  .input-group p, input {
+    font-family: 'Quicksand', sans-serif;
+    margin: 4px;
+    font-size: 15px;
+  }
+  
+  
+  .input-group input {   
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: black;
+    width: 280px;
+    margin-bottom: 24px; 
+  }
+  
 
 /* Navigation Bar  */
 .hamburger {
