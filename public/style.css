@@ -258,6 +258,7 @@ footer {
 .login-container h1, .signup-container h1 {
   margin-bottom: 12px;
   font-weight: 600;
+  text-align: center;
 }
 
 .login-subtitle {
@@ -314,8 +315,8 @@ footer {
 }
 
 .sign-up-account {    /* on login page */
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
+  font-family: var(--font-secondary) sans-serif;
+  font-size: 15px;
   color: gray;
 }
 
@@ -432,7 +433,32 @@ footer {
 
 /* Mobile Responsive */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 1500px) {
+  .form-container {
+    width: 100%; 
+  }
+
+
+  .login-container, .signup-container {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .form-container {
+    width: 100%; 
+  }
+
+  .form-btns {
+    flex-direction: column;
+  }
+
+  .login-container, .signup-container {
+    max-width: 100%;
+  }
+}
+
+@media screen and  (max-width: 768px) {
     /* Mobile Nav */
     .hamburger {
       display: flex;
@@ -469,10 +495,14 @@ footer {
       text-transform: uppercase;
     }
 
+    .signup-container, .login-container {
+      width: 80%;
+    }
+
   
 }
 
-@media (max-width: 500px) {
+@media screen and  (max-width: 500px) {
   .footer-text {
     font-size: 35px;
     text-align: center;
@@ -498,7 +528,7 @@ footer {
 }
 
 
-@media (max-width: 368px) {
+@media screen and  (max-width: 368px) {
   .footer-icons{
     width: 100%;
     flex-direction: row;
