@@ -14,6 +14,7 @@
     <!-- <img class="logo" src="/images/logo/logo1.png" alt="logo"> -->
     <h1>Sign up</h1>
     <p class="login-subtitle">Create an Account</p>
+   
     <form action="/auth/sign-up" method="POST">
       <label for="username">Username</label>
       <input id="username" name="username" placeholder="Username" type="text" maxlength="20" minlength="3" />
@@ -21,6 +22,15 @@
       <input id="password" name="password" type="password" placeholder="Password" />
       <button type="submit">Sign Up</button>
     </form>
+
+  
+    <% if (errorUser) { %>
+      <p class="error-message"><%= errorUser %></p>
+    <% } %>
+    
+    
+
+    
   </div>
   
 </body>

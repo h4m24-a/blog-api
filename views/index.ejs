@@ -20,8 +20,8 @@
   <main>
     <div class="container">
       <div class="blog-container">
+        <% posts.forEach(post => {%>
         <article>
-          <% posts.forEach(post => {%>
           <div class="blog-date"> <%= post.createdAt %> </div>
           <div class="blog-title"> <%= post.title %> </div>
           <div class="blog-content"> <%= post.content %> </div>
