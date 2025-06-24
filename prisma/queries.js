@@ -28,20 +28,23 @@ async function getAllPosts() {        // Only return posts if they are set to tr
 }
 
 
-// Get all posts for admin
+// Get all posts for admin  (published excluded)
 async function getAllPostsAdmin() {
   try {
     return await prisma.post.findMany({
-    select:{
-      title: true,
-    },
-    include: {
-      comments: true
-    }
-  });
+      select: {
+        title: true,
+        id: true,
+        author: {
+          select: {
+            username: true
+          }
+        },
+      },
+    });
   } catch (error) {
     console.error('Error fetching posts');
-    throw error
+    throw error;
   }
 }
 
@@ -151,7 +154,7 @@ async function getPostAndComments(postId) {
 }
 
 
-// Get a single post by post id
+// Get a specific post and display comments (admin)
 async function getSinglePostAdmin(postId) {
   try {
     return await prisma.post.findUnique({
@@ -166,6 +169,7 @@ async function getSinglePostAdmin(postId) {
         },
         comments: {
           select: {
+            id: true,
             content: true,
             user: {
               select: {
@@ -213,21 +217,21 @@ async function getAllPostsByUserId(userId) {
 // Get all comments of a post using post id
 async function getAllCommentsOfPost(postId) {
   try {
-    return await prisma.comment.findMany({
+    const comments =  await prisma.comment.findMany({
       where: {
-        postId: Number(postId)
+        postId
       },
       include: {
         user:{
           select: {
             username: true
           }
-        }
+        },
       },
-      orderBy:{
-        createdAt: 'asc'  // Sort commments Newest to oldest
-      }
     })
+
+    return comments;
+
   } catch (error) {
     console.error('Error fetching all comments for post', error);
     throw error
@@ -237,25 +241,31 @@ async function getAllCommentsOfPost(postId) {
 // Insert Comment - using post Id and user Id
 async function createComment(postId, userId, content) {
   try {
-    await prisma.comment.create({
+    const comment = await prisma.comment.create({
       data: {
-        userId: userId,
-        postId: postId,
-        content: content
+        content,
+        postId,
+        userId
       },
       include: {
         user: {
           select: {
-            username: true
+            username: true,
           }
         }
       }
-    })
+    });
+
+    return comment;
+
   } catch (error) {
-    console.error('Error creating comment', error);
-    throw error 
+    console.error('Error creating comment:', error);
+    throw error;
   }
 }
+
+
+
 
 
 
