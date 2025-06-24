@@ -18,6 +18,8 @@ async function getAllPostsAdminController(req, res) {
 }
 
 
+
+// GET a specific post and comments
 async function getSinglePostAdmin(req, res) {
   try {
     const postId = parseInt(req.params.postId, 10)
@@ -37,7 +39,7 @@ async function getSinglePostAdmin(req, res) {
 
 
 
-
+// Create a new post
 async function createPostController(req, res) {
   try {
     const { title, content } = req.body;
@@ -53,7 +55,7 @@ async function createPostController(req, res) {
 
 
 
-
+// Update post
 async function updatePostController(req, res) {
   try {
     const postId = parseInt(req.params.postId, 10);
@@ -61,7 +63,10 @@ async function updatePostController(req, res) {
 
     const updatedPost = await db.updatePost(postId, title, content);
 
-    res.json(updatedPost).json({ message: 'Post updated successfully'});
+    res.json({
+      updatedPost,
+      message: "Updated post successfully"
+    })
 
   } catch (error) {
     return res.status(500).json({ error: 'Failed to update post' })
@@ -70,7 +75,7 @@ async function updatePostController(req, res) {
 }
 
 
-
+// Delete post
 async function deletePostController(req, res) {
   try {
     const postId = parseInt(req.params.postId)
@@ -98,7 +103,10 @@ async function togglePublish(req, res) {
     }
     const updatedPublishStatus = await db.togglePublishStatus(postId, post.published);
 
-    return res.json(updatedPublishStatus)
+    return res.json({ 
+      updatedPublishStatus,
+      message: "Updated publish status"
+    })
     
   } catch (error) {
     return res.status(500).json({ error: 'Failed to toggle publish status'  })
@@ -106,19 +114,21 @@ async function togglePublish(req, res) {
 }
 
 
-
+// Delete a comment on a post
 async function deleteCommentAdminController(req, res) {
   try {
     const postId = parseInt(req.params.postId, 10);
     const commentId = parseInt(req.params.commentId, 10);
 
-    const comment = await db.getSingleCommentOfPost(commentId);
+    const comment = await db.getSingleCommentOfPost(commentId);   // Get comment object for extra info like postId
 
-    if (!comment.postId !== postId) {
+    if (comment.postId !== postId) {                  // If the post ID associated with the comment does not match the post ID in the URL, then return a 404.
       return res.status(404).json({ message: 'Comments not found for this post' })
     }
 
-    await db.deleteComment(commentId);
+    
+    await db.deleteComment(commentId);    // call query to delete comment and pass in comment id
+
     return res.json({ message: 'Comment deleted successfully by admin' })
     
   } catch (error) {
