@@ -17,7 +17,7 @@ router.get('/posts', getAllPostsAdminController)                // GET all posts
 
 router.get('/posts/:postId', getSinglePostAdmin);       // GET /api/admin/posts/:postId  - Single Post
 
-router.post('/posts', createPostController);              // POST /api/admin/posts
+router.post('/post', createPostController);              // POST /api/admin/posts
 
 router.put('/posts/:postId', updatePostController);       // PUT /api/admin/posts/:postId
 
@@ -33,7 +33,7 @@ router.delete('/posts/:postId/comments/:commentId', deleteCommentAdminController
 
 
 // Admin toggle posts 
-router.put('posts/:postId/toggle', togglePublish)      // set publish to true or false depending on the value
+router.patch('/posts/:postId/toggle', togglePublish)      // set publish to true or false depending on the value
 
 
 
