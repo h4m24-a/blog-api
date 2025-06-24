@@ -22,19 +22,26 @@ async function getSingleCommentOfPostController(req, res) {
 
 
 
-// POST posts/:postId/comments/comment   - Create a new comment on a post 
+// POST posts/:postId/comments/   - Create a new comment on a post 
 async function createCommentController(req, res) {
   try {
-    const postId = parseInt(req.params.postId, 10);
-    const userId = req.user?.id;
-    const { content } = req.body;
+    const postId = parseInt(req.params.postId, 10); // postId extracted from URL
+    const userId = req.user.id; // From JWT middleware
+    const { content } = req.body;   // Grabs comment content from request body
 
-    const comment = await db.createComment(postId, userId, content)
+
+    console.log('postId:', postId, 'userId:', userId);
+    const comment = await db.createComment (postId, userId, content)
     
-    res.status(201).json(comment)
+
+    
+    res.status(201).json( {
+      comment: comment,
+      message: "Comment Created"
+    })
 
   } catch (error) {
-    res.status(500).json({ error:'Internal Server Error' })
+    res.status(500).json({ error:'Failed to create comment' })
   }
   
 }
@@ -65,7 +72,11 @@ async function updateCommentController(req, res) {
 
     const updatedComment = await db.updateComment(commentId, content);
     
-    res.json(updatedComment)
+    res.json( { 
+      updatedComment,
+      message: 'Updated comment successfully' 
+
+    })
     
 
   } catch (error) {
@@ -83,6 +94,7 @@ async function deleteCommentController(req, res) {
 
     const comment = await db.getSingleCommentOfPost(commentId);
 
+    
     if (!comment) {
       return res.status(404).json({ error: 'Comment not found' })
     }
@@ -92,9 +104,11 @@ async function deleteCommentController(req, res) {
       return res.status(403).json({ error: 'You are not authorized to delete this comment' })
     }
 
-    await db.deleteComment(comment)
+    const id = comment.id
 
-    res.status(204).json({ message: 'Comment deleted', commentId });
+    await db.deleteComment(id)
+
+    res.status(204).json({ message: 'Comment deleted',});
     
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete comment' })
