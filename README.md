@@ -19,7 +19,9 @@ A **RESTful API** for a blog platform, supporting authenticated authors. Built w
 ---
 
 ## Features
+- Built a REST Api for a blog
 - JWT-based auth: Token issued at login, required for protected routes
 - Admin can create and manage posts and user comments
 - Users can login to view and comments on posts
 - Role-based access control handled using JWT
+- Middlewares verify if a user is authenticated and authorized
