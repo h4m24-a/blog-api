@@ -30,7 +30,6 @@ async function createCommentController(req, res) {
     const { content } = req.body;   // Grabs comment content from request body
 
 
-    console.log('postId:', postId, 'userId:', userId);
     const comment = await db.createComment (postId, userId, content)
     
 
