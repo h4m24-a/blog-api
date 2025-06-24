@@ -4,9 +4,11 @@ const { getAllPostsAdminController, getSinglePostAdmin, createPostController, up
 
 // Protect dashboard route to only ADMIN only users
 router.get('/dashboard', (req, res) => {              // GET /api/admin/dashboard
+  const { username, role } = req.user       // Destructures username and role properites from authenticated user object stored in req.user
   res.json({
     message: 'Welcome to Admin Dashboard',
-    user: req.user // Data from jwt payload
+    username,          // Data from jwt payload
+    role
   });
 });
 
