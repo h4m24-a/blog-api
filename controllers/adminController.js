@@ -4,7 +4,7 @@ const db = require('../prisma/queries');
 async function getAllPostsAdminController(req, res) {
   try {
 
-    const posts = db.getAllPostsAdmin();
+    const posts = await db.getAllPostsAdmin();
     
     if (!posts) {
       return res.status(404).json({ message: 'Admin posts not found' })
