@@ -58,7 +58,7 @@ app.use('/api/auth', authRouter);
 
 // Protected user routes (requires valid JWT)
 app.use('/api/posts', jwtAuthentication, postsRouter);
-app.use('/api/posts/:postId/comments', jwtAuthentication, commentsRouter);
+app.use('/api/posts/:postId/comments', jwtAuthentication, commentsRouter);      // Mounts comment routes on this base path, all routes in commentsRouter are relative to this path
 
 
 // Admin only routes (requires valid JWT & admin role)
