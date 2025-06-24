@@ -22,7 +22,7 @@ async function getPostAndCommentsController(req, res) {
     const postId = req.params.postId;
     const id = parseInt(postId, 10)
 
-    const post = await db.getSinglePostAndComments(id)
+    const post = await db.getPostAndComments(id)
 
     if (!post) {
       return res.status(404).json({ error: 'Post not found'})
@@ -46,20 +46,19 @@ async function getPostAndCommentsController(req, res) {
 // GET /posts/:postId/comments         - Fetches all comments of a  post.
 async function getAllCommentsOfPostController(req, res) {
   try {
-    const postId = req.params.postId;
-    const id = parseInt(postId, id);
+    const postId = parseInt(req.params.postId) 
 
+    
+    const comments = await db.getAllCommentsOfPost(postId)
+    
     if (!comments) {
       return res.status(404).json({ error: 'Comments not found'  })
     }
     
-    const comments = await db.getAllCommentsOfPost(id)
-    
     res.json(comments);
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
+    res.status(500).json({ error: "Failed to fetch comments for post"})
   }
-  
 }
 
 module.exports = {
