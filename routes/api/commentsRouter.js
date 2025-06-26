@@ -1,5 +1,8 @@
 const express = require('express');
 const { getSingleCommentOfPostController, createCommentController, updateCommentController, deleteCommentController  } = require('../../controllers/commentsController')
+const { validateComment } = require('../../controllers/commentFormValidation')
+const handleVandilationErrors = require('../../middleware/handleVandilationErrors')
+
 const router = express.Router({ mergeParams: true })
 
 // GET a specific comment on a post
@@ -7,12 +10,12 @@ router.get('/:commentId', getSingleCommentOfPostController);
 
 
 // CREATE a new comment on a post
-router.post('/', createCommentController );
+router.post('/', validateComment, handleVandilationErrors,   createCommentController );
 
 
 
 // UPDATE a specific comment on a post
-router.put('/:commentId', updateCommentController );
+router.put('/:commentId', validateComment, handleVandilationErrors, updateCommentController );
 
 
 
