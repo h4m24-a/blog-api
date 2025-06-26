@@ -8,7 +8,8 @@ const validateUserSignUp = [
   .withMessage('Username must be between 3 and 30 characters long.')
   .matches(/^[a-zA-Z0-9_]+$/) //  only alphanumeric characters and underscores
   .withMessage('Username must contain only letters, numbers and underscores')
-  .escape(),
+  .escape()
+  .toLowerCase(),
 
 
   // Validate password length
@@ -16,7 +17,7 @@ const validateUserSignUp = [
   .trim()
   .isLength({ min: 5, max: 128 })
   .withMessage('Password must be between 5 and 128 characters long')
-  .escape()
+  .notEmpty()
 ];
 
 
@@ -26,7 +27,8 @@ const validateUserLogIn = [
   .trim()
   .notEmpty()
   .withMessage('Username is required')
-  .escape(),
+  .escape()
+  .toLowerCase(),
 
   // Validate and sanitize password
   body('password')
