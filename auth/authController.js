@@ -94,7 +94,7 @@ async function logInUserPost(req, res) {
     // Set refresh token as HTTP-Only cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,                       // Only send over HTTPS. Set to true in production
+      secure: true,                       // Only send over HTTPS. Set to true in production
       maxAge: 7 * 24 * 60 * 60 * 1000     // 7 days in ms
     })
 

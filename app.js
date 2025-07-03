@@ -19,7 +19,8 @@ app.use(express.static('public'))   // 'public' is my static folder.
 app.use(express.json());  // submit raw json
 app.use(express.urlencoded({ extended: true }));  // takes in an object - replicates web form and sends form data.
 app.use(cors( {
-  origin: 'http://localhost:3000'
+  origin: ["http://localhost:5173", "http://localhost:3000"],
+  credentials: true     
 }));  // enables Cross-Origin Resource Sharing for all incoming requests.
 
 
