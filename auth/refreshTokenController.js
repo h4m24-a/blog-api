@@ -8,7 +8,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 async function refreshToken(req, res) {
   const refreshToken = req.cookies.refreshToken;              // Retrieve the refresh token from the user's cookies
-  if (!token) return res.status(401).json({ message: 'Refresh Token is missing' });  // Unauthorized
+  if (!refreshToken) return res.status(401).json({ message: 'Refresh Token is missing' });  // Unauthorized
 
 
   try {
@@ -19,14 +19,16 @@ async function refreshToken(req, res) {
     // Verify to see if refresh token is valid
     const storedToken = await db.getRefreshTokenByUserId(payload.id);
     if (storedToken != refreshToken) {
-      res.status(403).json({ message: 'Invalid refresh token' })
+      return res.status(403).json({ message: 'Invalid refresh token' })
     }
 
     
     // Create a new access token with user ID and role from the verified payload
-    const newAccessToken = jwt.sign({ id: payload.id, role: payload,role}, JWT_SECRET_KEY, {
-      expiresIn: '30m'
-    });
+    const newAccessToken = jwt.sign(
+      { id: payload.id, role: payload.role }, 
+      JWT_SECRET_KEY, 
+      { expiresIn: '30m'}
+    );
 
     res.json({ accessToken: newAccessToken})    
     // Send the new access token back to the client in the response
