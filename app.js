@@ -31,8 +31,9 @@ app.use(cookieParser());
 // Routers
 let postsRouter = require('./routes/api/postsRouter');
 let commentsRouter = require('./routes/api/commentsRouter');
-let authRouter = require('./auth/authRoutes')
-let adminProtectedRouter = require('./auth/authProtectedRoutes')
+let authRouter = require('./auth/authRoutes');
+let adminProtectedRouter = require('./auth/authProtectedRoutes');
+let userRouter = require('./routes/api/userRouter');
 
 
 // specifying views folder where the templates are stored '/views/ and templating engine to ejs.
@@ -60,6 +61,7 @@ app.use('/api/auth', authRouter);
 // Protected user routes (requires valid JWT)
 app.use('/api/posts', jwtAuthentication, postsRouter);
 app.use('/api/posts/:postId/comments', jwtAuthentication, commentsRouter);      // Mounts comment routes on this base path, all routes in commentsRouter are relative to this path
+app.use('/api/auth/', jwtAuthentication, userRouter);   // 'api/auth/' is the base path. Every route in userRouter is mounted relative to api/auth
 
 
 // Admin only routes (requires valid JWT & admin role)

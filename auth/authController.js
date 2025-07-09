@@ -94,7 +94,7 @@ async function logInUserPost(req, res) {
     // Set refresh token as HTTP-Only cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: true,                       // Only send over HTTPS. Set to true in production
+      secure: false,                       // Only send over HTTPS. Set to true in production
       maxAge: 7 * 24 * 60 * 60 * 1000     // 7 days in ms
     })
 
@@ -108,19 +108,34 @@ async function logInUserPost(req, res) {
 
 
 
-// Log out user - (GET)
-async function getSignOut(req, res) {
+// User Profile - (GET)
+async function getUserProfile(req, res) {
   try {
-    
+
+    if (!req.user) {
+      return res.status(401).json({ message: "You are not authorized" });
+    }
+
+
+    const { id, role, username } = req.user;    // destrucure to retrieve id, role, username from req.user object
+
+
+    res.json({
+      message: `${username}'s Profile!`,
+      username, // Data from jwt payload
+      role,
+      id,
+    });
+
   } catch (error) {
-    
+    res.status(500).json({ message: "Error fetching profile" });
   }
-  
 }
 
 module.exports = {
   // getSignUp,
   // getLogin,
   signUpPost,
-  logInUserPost
+  logInUserPost,
+  getUserProfile
 };
