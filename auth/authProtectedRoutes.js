@@ -6,7 +6,7 @@ const { getAllPostsAdminController, getSinglePostAdmin, createPostController, up
 router.get('/dashboard', (req, res) => {              // GET /api/admin/dashboard
   const { username, role } = req.user       // Destructures username and role properites from authenticated user object stored in req.user
   res.json({
-    message: 'Welcome to Admin Dashboard',
+    message: `${username}, Welcome to Admin Dashboard `,
     username,          // Data from jwt payload
     role
   });
