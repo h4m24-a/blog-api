@@ -19,10 +19,13 @@ async function getPosts(req, res) {
 // GET /posts/:postId   - single post by id and all comments
 async function getPostAndCommentsController(req, res) {
   try {
-    const postId = req.params.postId;
-    const id = parseInt(postId, 10)
+    const postId = parseInt(req.params.postId) 
 
-    const post = await db.getPostAndComments(id)
+     if (isNaN(postId)) {
+      return res.status(400).json({ error: 'Invalid post ID' });
+    }
+
+    const post = await db.getPostAndComments(postId)
 
     if (!post) {
       return res.status(404).json({ error: 'Post not found'})
