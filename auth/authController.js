@@ -2,6 +2,7 @@ const db = require("../prisma/queries");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { validationResult } = require("express-validator");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const JWT_REFRESH_SECRET_KEY = process.env.JWT_REFRESH_SECRET_KEY;
 
@@ -33,31 +34,34 @@ const JWT_REFRESH_SECRET_KEY = process.env.JWT_REFRESH_SECRET_KEY;
 
 // Sign-up user - Add User to Database - (POST)
 async function signUpPost(req, res, next) {
-
   const username = req.body.username; // Get username from form
   const password = req.body.password; // Get password from form
 
-  const existingUsername = await db.findUserByUsername(username);
-  if (existingUsername) {
-    return res.status(409).json({ error: 'Username already exists'});
-  }
+  const errors = validationResult(req);
 
-  try {
-    // Hash password and insert user
-    bcrypt.hash(password, 10, async (error, hashedPassword) => {
-      if (error) {
-        return next(error);
-      }
-
-      await db.insertUser(username, hashedPassword); // call db the function that inserts the username & hashed password obtained from form in the db
+  if (!errors.isEmpty()) {
+    // Return 400 with error details
+    return res.status(400).json({
+      errors: errors.array(), // this gives you an array of error messages
     });
+  }
+  
+  try {
+    const existingUsername = await db.findUserByUsername(username);
+    if (existingUsername) {
+      return res.status(409).json({ error: "Username already exists" });
+    }
 
+    // Hash password and insert user
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    await db.insertUser(username, hashedPassword); // call db the function that inserts the username & hashed password obtained from form in the db
    
-
-    return res.status(201).json({ message: 'User created successfully' });
+    return res.status(201).json({ message: "User created successfully" });    // respond with message after successfull sign up
+    
   } catch (error) {
-    console.error('Signup error', error)
-    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+    console.error("Signup error", error);
+    return res.status(500).json({ error: "Something went wrong. Please try again." });
   }
 }
 
