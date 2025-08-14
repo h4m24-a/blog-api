@@ -105,7 +105,7 @@ async function togglePublish(req, res) {
 
     return res.json({ 
       updatedPublishStatus,
-      message: "Updated publish status"
+      message: `Updated publish status to ${updatedPublishStatus.published}`
     })
     
   } catch (error) {
