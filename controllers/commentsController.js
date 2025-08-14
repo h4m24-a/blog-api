@@ -1,5 +1,5 @@
 const db = require('../prisma/queries');
-
+const { validationResult } = require("express-validator");
 
 
 // GET /posts/:postId/comments/:commentId    - a single comment of a post
@@ -24,6 +24,16 @@ async function getSingleCommentOfPostController(req, res) {
 
 // POST posts/:postId/comments/   - Create a new comment on a post 
 async function createCommentController(req, res) {
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // Return 400 with error details
+      return res.status(400).json({
+        errors: errors.array(), // this gives you an array of error messages
+      });
+    }
+
   try {
     const postId = parseInt(req.params.postId, 10); // postId extracted from URL
     const userId = req.user.id; // From JWT middleware
@@ -32,8 +42,7 @@ async function createCommentController(req, res) {
 
     const comment = await db.createComment (postId, userId, content)
     
-
-    
+  
     res.status(201).json( {
       comment: comment,
       message: "Comment Created"
@@ -48,11 +57,21 @@ async function createCommentController(req, res) {
 
 // PUT posts/:postId/comments/:commentId  - Update comment using post Id and comment Id
 async function updateCommentController(req, res) {
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    // Return 400 with error details
+    return res.status(400).json({
+      errors: errors.array(), // this gives you an array of error messages
+    });
+  }
+
   try {
     const userId = req.user?.id;
     const postId = parseInt(req.params.postId, 10);
     const commentId = parseInt(req.params.commentId, 10);
-    const { content } = req.body;
+    const { updatedContent } = req.body;
     
     
     const comment = await db.getSingleCommentOfPost(commentId);
@@ -69,13 +88,9 @@ async function updateCommentController(req, res) {
       return res.status(404).json({ error: 'You are not authorized to edit this comment' });
     }
 
-    const updatedComment = await db.updateComment(commentId, content);
+    const updatedComment = await db.updateComment(commentId, updatedContent);
     
-    res.json( { 
-      updatedComment,
-      message: 'Updated comment successfully' 
-
-    })
+    res.status(200).json( { updatedComment, message: 'Updated comment successfully' })
     
 
   } catch (error) {
