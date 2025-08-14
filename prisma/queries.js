@@ -10,6 +10,9 @@ const prisma = new PrismaClient();    // creates an instance of PrismaClient, Th
 async function getAllPosts() {        // Only return posts if they are set to true & include author field and only return username.
   try {
     return await prisma.post.findMany( {
+      orderBy: {
+        createdAt: 'asc',
+      },
       include: {
         author: {
           select: {
@@ -104,14 +107,16 @@ async function deletePost(postId) {
 // Update post - Publish to false or false
 async function togglePublishStatus(postId, publishStatus) {
   try {
-    await prisma.post.update({
+    const updatedPostStatus = await prisma.post.update({
       where:{
         id: postId
       },
       data: {
         published: !publishStatus    // flips the boolean value, so true to false and false to true
       }
-    })
+    });
+
+    return updatedPostStatus
   } catch (error) {
     console.error('An error occurred during updating post:', error);
     throw error;
@@ -133,14 +138,22 @@ async function getPostAndComments(postId) {
         author: {
           select: {
             username: true, // Only return username of post author
+            id: true,
           }
         },
         comments: {
+          orderBy: {
+            createdAt: 'asc'
+          },
           select: {
+            id: true,
+            createdAt: true,
             content: true, // Comment content
+            postId: true,
             user: {
               select: {
-                username: true // Only return username of comment author
+                username: true, // Only return username of comment author,
+                id: true,
               }
             }
           }
@@ -173,7 +186,8 @@ async function getSinglePostAdmin(postId) {
             content: true,
             user: {
               select: {
-                username: true
+                username: true,
+                id: true,
               }
             }
           }
@@ -272,14 +286,14 @@ async function createComment(postId, userId, content) {
 
 
 // Update Comment
-async function updateComment(commentId, content) {
+async function updateComment(commentId, updatedContent) {
   try {
     return await prisma.comment.update({
       where: {
         id: commentId
       },
       data: {
-        content: content
+        content: updatedContent
       }
     })
   } catch (error) {
