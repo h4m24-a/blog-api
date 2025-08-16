@@ -116,13 +116,12 @@ async function logInUserPost(req, res) {
 async function getUserProfile(req, res) {
   try {
 
+    
+    const { id, role, username } = req.user;    // destrucure to retrieve id, role, username from req.user object
+    
     if (!req.user) {
       return res.status(401).json({ message: "You are not authorized" });
     }
-
-
-    const { id, role, username } = req.user;    // destrucure to retrieve id, role, username from req.user object
-
 
     res.json({
       message: `${username}'s Profile!`,
