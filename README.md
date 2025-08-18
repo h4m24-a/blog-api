@@ -8,11 +8,12 @@ A **RESTful API** for a blog platform, supporting authenticated authors. Built w
 
 |  |  |
 |------------|-------------|
-| ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) | Server-side JavaScript runtime |
+| ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) | Server-side|
 | ![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) | Routing and server logic |
 | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) | Relational database |
-| ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white) | Type-safe ORM |
+| ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white) | ORM |
 | ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white) | Token-based authentication |
+| ![Passport.js](https://img.shields.io/badge/Passport-34E27A.svg?style=for-the-badge&logo=Passport&logoColor=white) | Authentication & Authorization |
 | ![bcrypt](https://img.shields.io/badge/bcrypt-35495E?style=for-the-badge&logo=lock&logoColor=white) | Password hashing |
 
 
@@ -25,3 +26,4 @@ A **RESTful API** for a blog platform, supporting authenticated authors. Built w
 - Users can login to view and comments on posts
 - Role-based access control handled using JWT
 - Middlewares verify if a user is authenticated and authorized
+- Express validator to validate and sanitize form inputs
