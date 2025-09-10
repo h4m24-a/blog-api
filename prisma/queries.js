@@ -35,9 +35,7 @@ async function getAllPosts() {        // Only return posts if they are set to tr
 async function getAllPostsAdmin() {
   try {
     return await prisma.post.findMany({
-      select: {
-        title: true,
-        id: true,
+      include: {
         author: {
           select: {
             username: true
@@ -171,7 +169,7 @@ async function getPostAndComments(postId) {
 async function getSinglePostAdmin(postId) {
   try {
     return await prisma.post.findUnique({
-      where :{
+      where: {
         id: Number(postId),
       },
       include: {
@@ -183,6 +181,7 @@ async function getSinglePostAdmin(postId) {
         comments: {
           select: {
             id: true,
+            createdAt: true,
             content: true,
             user: {
               select: {
