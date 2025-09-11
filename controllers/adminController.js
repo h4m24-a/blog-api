@@ -114,7 +114,7 @@ async function togglePublish(req, res) {
 }
 
 
-// Delete a comment on a post
+// Delete a comment on a post (admin)
 async function deleteCommentAdminController(req, res) {
   try {
     const postId = parseInt(req.params.postId, 10);
@@ -137,6 +137,40 @@ async function deleteCommentAdminController(req, res) {
 }
 
 
+
+// Edit a user comment on a post (admin)
+
+async function updateCommentAdminController(req, res) {
+
+  try {
+    const postId = parseInt(req.params.postId, 10); // postId extracted from URL
+    const commentId = parseInt(req.params.commentId, 10); // commentId extracted
+    const { updatedContent } = req.body   // Grabs comment content from request body
+
+
+    const comment = await db.getSingleCommentOfPost(commentId);
+
+    if (!comment) {
+      return res.status(400).json({ message: 'Comment not found' })
+    }
+
+      if (comment.postId !== postId) {
+      return res.status(404).json({ error: 'Comment does not belong to this post' });
+    }
+
+
+    const updatedComment = await db.updateComment(commentId, updatedContent)
+
+    res.status(200).json({ updatedComment, message: 'Comment updated successfully by admin'})
+
+
+
+  } catch (error) {
+    return res.status(500).json({ error: 'Admin failed to update comment'})
+  }
+
+}
+
 module.exports = {
   getAllPostsAdminController,
   getSinglePostAdmin,
@@ -144,5 +178,6 @@ module.exports = {
   updatePostController,
   deletePostController,
   togglePublish,
-  deleteCommentAdminController
+  deleteCommentAdminController,
+  updateCommentAdminController,
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getAllPostsAdminController, getSinglePostAdmin, createPostController, updatePostController, deletePostController, togglePublish, deleteCommentAdminController } = require('../controllers/adminController');
+const { getAllPostsAdminController, getSinglePostAdmin, createPostController, updatePostController, deletePostController, togglePublish, deleteCommentAdminController, updateCommentAdminController } = require('../controllers/adminController');
+const { validateUpdateComment } = require('../controllers/commentFormValidation')
 
 // Protect dashboard route to only ADMIN only users
 router.get('/dashboard', (req, res) => {              // GET /api/admin/dashboard
@@ -26,9 +27,13 @@ router.delete('/posts/:postId', deletePostController);    // DELETE /api/admin/p
 
 
 
-// Admin Delete comments
+// Admin Delete comment
 router.delete('/posts/:postId/comments/:commentId', deleteCommentAdminController )    // api/admin/posts/:postId/comments/:commentId
 
+
+
+// Admin Update comment
+router.put('/posts/:postId/comments/:commentId', validateUpdateComment, updateCommentAdminController)
 
 
 
