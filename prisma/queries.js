@@ -179,6 +179,9 @@ async function getSinglePostAdmin(postId) {
           }
         },
         comments: {
+          orderBy: {
+            createdAt: 'asc'
+          },
           select: {
             id: true,
             createdAt: true,
