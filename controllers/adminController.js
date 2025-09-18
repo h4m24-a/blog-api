@@ -59,9 +59,9 @@ async function createPostController(req, res) {
 async function updatePostController(req, res) {
   try {
     const postId = parseInt(req.params.postId, 10);
-    const { title, content } = req.body;
+    const { updatedPostTitle, updatedPostContent } = req.body;
 
-    const updatedPost = await db.updatePost(postId, title, content);
+    const updatedPost = await db.updatePost(postId, updatedPostTitle, updatedPostContent);
 
     res.json({
       updatedPost,
