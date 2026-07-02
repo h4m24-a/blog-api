@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator')
 
 const runValidation = (req, res, next) => {
   const errors = validationResult(req)
-  if (!errors.isEmpty()) {          // This code checks if validation errors exist.
+  if (!errors.isEmpty()) {          // checks if the validation result is not empty (i.e., there are validation errors).
     return res.status(400).json({ errors: errors.array() });  // If yes, it sends a 400 Bad Request response to the client with the error details in JSON format.
   }
   next()  // If no errors, it calls next() to proceed to the next middleware or controller

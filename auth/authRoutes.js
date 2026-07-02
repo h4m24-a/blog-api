@@ -5,15 +5,12 @@ const logoutController = require('./logoutController');
 const refreshTokenController = require('./refreshTokenController');
 const { validateUserLogIn, validateUserSignUp } = require('../auth/authFormValidation');
 const handleVandilationErrors = require('../middleware/handleVandilationErrors')
-const passport = require('./passportJwtConfig');
 
 
-// router.get('/sign-up', getSignUp)                              // Renders sign up form
 
 router.post('/sign-up', validateUserSignUp, handleVandilationErrors, signUpPost)              // Creates and submits new user after signup
 
 
-// router.get('/log-in', getLogin)                             // Renders login form
 
 
 router.post('/log-in', validateUserLogIn, handleVandilationErrors, logInUserPost)               // Submits user login data

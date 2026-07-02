@@ -6,30 +6,6 @@ const { validationResult } = require("express-validator");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const JWT_REFRESH_SECRET_KEY = process.env.JWT_REFRESH_SECRET_KEY;
 
-// Render Sign Up form (GET)
-// async function getSignUp(req, res) {
-//   try {
-//     res.render("signup_form", { errorUser: null }); // errorUser intially set to null, helps display the error message
-//   } catch (error) {
-//     console.error("Error displaying sign up form", error);
-//     res.status(500).send("Server Error");
-//   }
-// }
-
-
-
-// Render Login page (GET)
-// async function getLogin(req, res) {
-//   try {
-//     res.render("login_form");
-//   } catch (error) {
-//     console.error("Error displaying login form", error);
-//     res.status(500).send("Server Error");
-//   }
-// }
-
-
-
 
 
 // Sign-up user - Add User to Database - (POST)

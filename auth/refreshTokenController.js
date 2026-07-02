@@ -18,7 +18,7 @@ async function refreshToken(req, res) {
 
     // Verify to see if refresh token is valid
     const storedToken = await db.getRefreshTokenByUserId(payload.id);
-    if (storedToken != refreshToken) {
+    if (storedToken != refreshToken) { //     / != returns true if both operands are NOT equal
       return res.status(403).json({ message: 'Invalid refresh token' })
     }
 
