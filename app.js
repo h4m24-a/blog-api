@@ -16,18 +16,18 @@ const app = express();
 app.use(express.static('public'))   // 'public' is my static folder.
 
 // Body parser middleware
-app.use(express.json());  // submit raw json
 app.use(express.urlencoded({ extended: true }));  // takes in an object - replicates web form and sends form data.
 app.use(cors({
   origin: [
     "https://blog-api-production-0057.up.railway.app",
     "https://blog-frontend-production-14e1.up.railway.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
+app.use(express.json());  // submit raw json
 app.options("*", cors());
 
 // Middlewares for cookies
