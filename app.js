@@ -20,7 +20,10 @@ app.use(express.urlencoded({ extended: true }));  // takes in an object - replic
 app.use(express.json());  // submit raw json
 
 const corsOptions = {
-  origin: "https://blog-frontend-production-14e1.up.railway.app",
+  origin: [
+    "https://blog-api-production-0057.up.railway.app",
+    "https://blog-frontend-production-14e1.up.railway.app"
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
