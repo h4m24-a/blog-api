@@ -1,6 +1,6 @@
 const express = require('express');  //  import express
 require('dotenv').config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const errorHandler = require('./middleware/error');
 const notFound = require('./middleware/notFound');
 const cors = require('cors')
@@ -85,6 +85,6 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-app.listen(PORT, () => {
-  console.log(`Server listening on PORT ${PORT}`)
-})
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server listening on PORT", PORT);
+});
