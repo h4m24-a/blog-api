@@ -17,18 +17,19 @@ app.use(express.static('public'))   // 'public' is my static folder.
 
 // Body parser middleware
 app.use(express.urlencoded({ extended: true }));  // takes in an object - replicates web form and sends form data.
-app.use(cors({
-  origin: [
-    "https://blog-api-production-0057.up.railway.app",
-    "https://blog-frontend-production-14e1.up.railway.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
-
 app.use(express.json());  // submit raw json
-app.options("*", cors());
+
+const corsOptions = {
+  origin: "https://blog-frontend-production-14e1.up.railway.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
+
+app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
+
 
 // Middlewares for cookies
 app.use(cookieParser());
