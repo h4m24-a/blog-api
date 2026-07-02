@@ -11,19 +11,20 @@ const jwtAuthentication = require('./middleware/jwtAuthentication');
 const checkAdmin = require('./middleware/checkAdmin');
 const app = express();
 
+app.set("trust proxy", 1);
 
-// Serve static files
-app.use(express.static('public'))   // 'public' is my static folder.
-
-// Body parser middleware
-app.use(express.urlencoded({ extended: true }));  // takes in an object - replicates web form and sends form data.
-app.use(express.json());  // submit raw json
+const allowedOrigins = [
+  "https://blog-frontend-production-14e1.up.railway.app"
+];
 
 const corsOptions = {
-  origin: [
-    "https://blog-api-production-0057.up.railway.app",
-    "https://blog-frontend-production-14e1.up.railway.app"
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // mobile apps / curl
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -33,6 +34,12 @@ app.use(cors(corsOptions));
 
 app.options("*", cors(corsOptions));
 
+// Serve static files
+app.use(express.static('public'))   // 'public' is my static folder.
+
+// Body parser middleware
+app.use(express.urlencoded({ extended: true }));  // takes in an object - replicates web form and sends form data.
+app.use(express.json());  // submit raw json
 
 // Middlewares for cookies
 app.use(cookieParser());
