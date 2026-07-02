@@ -13,18 +13,8 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-const allowedOrigins = [
-  "https://blog-frontend-production-14e1.up.railway.app"
-];
-
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // mobile apps / curl
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error("Not allowed by CORS"));
-  },
+  origin: "https://blog-frontend-production-14e1.up.railway.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -32,7 +22,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.options("*", cors(corsOptions));
+// HARD FIX for preflight
+app.options("/*", cors(corsOptions));
 
 // Serve static files
 app.use(express.static('public'))   // 'public' is my static folder.
