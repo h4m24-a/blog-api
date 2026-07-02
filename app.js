@@ -72,7 +72,7 @@ app.use((req, res, next) => {
 // Adding route-handling code to the request handling chain. This will define particular routes for the different parts of the site
 
 // Public (unauthenticated) routes
-app.use('/api/auth', authRouter);
+app.use('/api/', authRouter);
 
 
 // Protected user routes (requires valid JWT)
