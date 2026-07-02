@@ -23,8 +23,12 @@ app.use(cors({
     "https://blog-api-production-0057.up.railway.app",
     "https://blog-frontend-production-14e1.up.railway.app"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
+app.options("*", cors());
 
 // Middlewares for cookies
 app.use(cookieParser());
