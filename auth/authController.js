@@ -75,7 +75,8 @@ async function logInUserPost(req, res) {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,                       // Only send over HTTPS. Set to true in production
-      maxAge: 7 * 24 * 60 * 60 * 1000     // 7 days in ms
+      maxAge: 7 * 24 * 60 * 60 * 1000,     // 7 days in ms
+      sameSite: 'none'
     })
 
     res.json({ message: 'Login succesfull', accessToken })    // Send JWT to client
