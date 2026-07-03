@@ -7,6 +7,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 let path = require('path');
+require('./auth/passportJwtConfig');
 const jwtAuthentication = require('./middleware/jwtAuthentication');
 const checkAdmin = require('./middleware/checkAdmin');
 const app = express();
@@ -85,6 +86,6 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("Server listening on PORT", PORT);
-});
+app.listen(PORT, () => {
+  console.log(`Server listening on PORT ${PORT}`)
+})
