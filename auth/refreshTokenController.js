@@ -8,7 +8,15 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 async function refreshToken(req, res) {
   const refreshToken = req.cookies.refreshToken;              // Retrieve the refresh token from the user's cookies
-  if (!refreshToken) return res.status(401).json({ message: 'Refresh Token is missing' });  // Unauthorized
+  if (!refreshToken) {
+     await db.deleteRefreshToken(payload.id)
+      res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      });
+    return res.status(401).json({ message: 'Refresh Token is missing' });  // Unauthorized
+  } 
 
 
   try {

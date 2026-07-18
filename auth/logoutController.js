@@ -21,7 +21,7 @@ async function logOutUser(req, res) {
     res.clearCookie('refreshToken', {           // Clear the refresh token cookie from the user's browser
       httpOnly: true,
       secure: true,    // Set to true in production
-      sameSite: 'Strict'
+      sameSite: 'none'
     })       
 
     res.json({ message: 'Logged out successfully' })  // Respond with a success message
