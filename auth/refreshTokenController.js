@@ -38,6 +38,7 @@ async function refreshToken(req, res) {
     httpOnly: true,
     secure: true,
     sameSite: "none",
+    partitioned: true,
   });
     res.status(403).json({ message: 'Invalid or expired refresh token' });     // If verification fails or an error occurs, respond with 403 Forbidden
   }
