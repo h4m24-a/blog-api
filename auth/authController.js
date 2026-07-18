@@ -65,7 +65,7 @@ async function logInUserPost(req, res) {
 
     const accessToken = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '30m' });      // If login is succesfull, generate a JWT using payload and secret key.
 
-    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET_KEY, { expiresIn: '7d' });
+    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET_KEY, { expiresIn: '30s' });
 
 
     // Storing refresh token in db
