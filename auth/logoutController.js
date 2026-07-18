@@ -20,7 +20,7 @@ async function logOutUser(req, res) {
   
     res.clearCookie('refreshToken', {           // Clear the refresh token cookie from the user's browser
       httpOnly: true,
-      secure: false,    // Set to true in production
+      secure: true,    // Set to true in production
       sameSite: 'Strict'
     })       
 
