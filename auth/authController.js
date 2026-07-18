@@ -65,7 +65,7 @@ async function logInUserPost(req, res) {
 
     const accessToken = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '30m' });      // If login is succesfull, generate a JWT using payload and secret key.
 
-    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET_KEY, { expiresIn: '30s' });
+    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET_KEY, { expiresIn: '7d' });
 
 
     // Storing refresh token in db
@@ -75,8 +75,7 @@ async function logInUserPost(req, res) {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,                       // Only send over HTTPS. Set to true in production
-      // maxAge: 7 * 24 * 60 * 60 * 1000,  // 7 days in ms
-      maxAge: 30000,     // 30 seconds in ms
+      maxAge: 7 * 24 * 60 * 60 * 1000,  // 7 days in ms
       sameSite: 'none'
     })
 
