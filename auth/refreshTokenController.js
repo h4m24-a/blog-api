@@ -20,12 +20,6 @@ async function refreshToken(req, res) {
     const storedToken = await db.getRefreshTokenByUserId(payload.id);
     if (storedToken != refreshToken) { //     / != returns true if both operands are NOT equal
       await db.deleteRefreshToken(payload.id)
-      res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      });
-
       return res.status(403).json({ message: 'Invalid refresh token' })
     }
 
@@ -40,6 +34,11 @@ async function refreshToken(req, res) {
     res.json({ accessToken: newAccessToken})    
     // Send the new access token back to the client in the response
   } catch (error) {
+    res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
     res.status(403).json({ message: 'Invalid or expired refresh token' });     // If verification fails or an error occurs, respond with 403 Forbidden
   }
 }
